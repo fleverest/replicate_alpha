@@ -22,15 +22,10 @@ def compute_ss(params):
     eta = params["eta"]
     d = params["d"]
     x = np.array(np.load(f"table2_data/theta{theta}_{i}.npz")["x"], dtype=np.float64)
-    old = old_alpha(x, eta, d)
-    old_ss = np.argmax(old > 1 / alpha)
-    new = new_alpha(x, eta, d)
-    new_ss = np.argmax(new > 1 / alpha)
-    np.savez_compressed(
-        f"table2_results/theta{theta}_eta{eta}_d{d}_{i}.npz",
-        old=old_ss,
-        new=new_ss,
-    )
+    ss = new_alpha(x, eta, d)
+    print(ss)
+    with open(f"table2_results/theta{theta}_eta{eta}_d{d}_{i}.txt", "w") as f:
+        f.write(str(ss))
 
 
 if __name__ == "__main__":

@@ -119,4 +119,4 @@ def new_alpha(x, eta, d):
         _ = test.update([xi])
         if test.stopped:
             break
-    return np.array(test.e_process)
+    return test.summaries.count
