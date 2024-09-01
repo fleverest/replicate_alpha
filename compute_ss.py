@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import multiprocessing as mp
 
@@ -21,10 +23,15 @@ def compute_ss(params):
     i = params["i"]
     eta = params["eta"]
     d = params["d"]
-    x = np.array(np.load(f"table2_data/theta{theta}_{i}.npz")["x"], dtype=np.float64)
+    in_filename = f"table2_data/theta{theta}_{i}.npz"
+    out_filename = f"table2_results/theta{theta}_eta{eta}_d{d}_{i}.txt"
+    if os.path.isfile(out_filename):
+        # Skip completed computations
+        return
+    x = np.array(np.load(in_filename)["x"], dtype=np.float64)
     ss = new_alpha(x, eta, d)
     print(ss)
-    with open(f"table2_results/theta{theta}_eta{eta}_d{d}_{i}.txt", "w") as f:
+    with open(out_filename, "w") as f:
         f.write(str(ss))
 
 
