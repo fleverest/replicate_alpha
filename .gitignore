@@ -2,4 +2,5 @@ table2_data/*
 table2_results/*
 plots/*
 .venv
+log/*
 __pycache__
